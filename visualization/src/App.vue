@@ -16,7 +16,7 @@
       <!-- 数据总览图 -->
       <TotalDate class="bg-opacity-50 bg-slate-800 p-3" />
       <!-- 地图可视化 -->
-      <MapChart class="bg-opacity-50 bg-slate-800 p-3 mt-4 flex-1"/>
+      <MapChart class="bg-opacity-50 bg-slate-800 p-3 mt-4 flex-1" />
     </div>
 
     <!-- 右边 -->
@@ -40,6 +40,21 @@ import RingBar from './components/RingBar.vue'
 import TotalDate from './components/TotalDate.vue'
 import VerticalBar from './components/VerticalBar.vue'
 import WordClound from './components/WordClound.vue'
+
+import { ref } from 'vue'
+import { getVisualization } from './api/visualization'
+
+const data = ref(null)
+const loadData = async () => {
+  data.value = await getVisualization()
+  console.log(data.value);
+}
+
+loadData()
+
+setInterval(() => {
+  loadData()
+}, 3000)
 </script>
 
 <style scoped lang="scss"></style>

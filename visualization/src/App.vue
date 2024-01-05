@@ -1,10 +1,10 @@
 <template>
   <div class=" bg-[url('assets/imgs/bg.jpg')] bg-cover bg-center h-screen
-  text-white p-5 flex overflow-hidden">
+  text-white p-5 flex overflow-hidden" v-if="data">
     <!-- 左边 -->
     <div class="flex-1 mr-5 bg-opacity-50 bg-slate-800 p-3 flex flex-col">
       <!-- 横向柱状图 -->
-      <HorizontalBar class="h-1/3 box-border pb-4" />
+      <HorizontalBar :data="data.regionData" class="h-1/3 box-border pb-4" />
       <!-- 雷达图 -->
       <RadarBar class="h-1/3 box-border pb-4" />
       <!-- 关系图 -->
@@ -47,14 +47,14 @@ import { getVisualization } from './api/visualization'
 const data = ref(null)
 const loadData = async () => {
   data.value = await getVisualization()
-  console.log(data.value);
+  console.log('data.value', data.value);
 }
 
 loadData()
 
-// setInterval(() => {
-//   loadData()
-// }, 3000)
+setInterval(() => {
+  loadData()
+}, 3000)
 </script>
 
 <style scoped lang="scss"></style>

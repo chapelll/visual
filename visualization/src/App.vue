@@ -52,9 +52,9 @@ const loadData = async () => {
 
 loadData()
 
-setInterval(() => {
-  loadData()
-}, 3000)
+// setInterval(() => {
+//   loadData()
+// }, 3000)
 </script>
 
 <style scoped lang="scss"></style>

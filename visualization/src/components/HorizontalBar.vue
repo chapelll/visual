@@ -1,6 +1,6 @@
 <template>
   <div>
-    横向柱状图
+    横向柱状图123
   </div>
 </template>
 

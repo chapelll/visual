@@ -15,8 +15,6 @@ const props = defineProps({
     required: true
   }
 })
-console.log('横向柱状图');
-console.log(props.data);
 
 // 1.初始化echarts对象
 let myChart = null
@@ -92,7 +90,6 @@ const renderChart = () => {
   }
 
   // 3.echarts对象实例化渲染
-  console.log('myChart', myChart);
   myChart.setOption(options)
 }
 

@@ -18,7 +18,6 @@ const props = defineProps({
 let myChart = null
 let target = ref(null)
 onMounted(() => {
-  console.log(props);
   myChart = echarts.init(target.value)
   renderChart()
 })
@@ -74,7 +73,6 @@ const renderChart = () => {
             color: '#fff'
           },
           formatter: function (value, index) {
-            console.log(value);
             return `${value.data.value}%`
           }
         },

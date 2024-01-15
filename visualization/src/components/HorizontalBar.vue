@@ -97,7 +97,6 @@ const renderChart = () => {
 watch(() => props.data, () => {
   renderChart()
 })
-
 </script>
 
 <style scoped lang="scss"></style>

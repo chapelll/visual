@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>【云端数据风险】</div>
+    <div>【云端报警风险】</div>
     <div ref="target" class="w-full h-full"></div>
   </div>
 </template>
@@ -116,7 +116,6 @@ const renderChart = () => {
       }]
     }
   }
-  console.log(options.series.data);
   // 3.echarts对象实例化渲染
   myChart.setOption(options)
 }

@@ -46,7 +46,8 @@ const renderChart = () => {
             show: true,
             color: '#fff',
             textStyle: {
-              fontSize: 14
+              fontSize: 14,
+              // color: 'red'
             },
             formatter: function (params) {
               return params.data.speed
@@ -100,6 +101,48 @@ const renderChart = () => {
             }
           }
         }),
+        links: props.data.relations.map((item) => {
+          return {
+            source: item.source,
+            target: item.target,
+            speed: `${item.speed}kb/s`,
+            lineStyle: {
+              normal: {
+                color: '#12B5D0',
+                curveness: 0.2, //斜率
+              }
+            },
+            label: {
+              show: true,
+              position: 'middle',
+              offset: [10, 0], //偏移
+            }
+          }
+        }), //节点间的数据关系 从源头到目标
+      },
+      {
+        type: 'lines', //绘制线上的流动
+        coordinateSystem: 'cartesian2d', //坐标系选择二位直角坐标系
+        z: 1,
+        effect: { //线特效的配置
+          show: true,
+          smooth: false,
+          trailLength: 0,
+          symbol: 'arrow',
+          color: 'rgba(55,155,255,.5)',
+          symbolSize: 12,
+        },
+        lineStyle: {
+          normal: {
+            curveness: 0.2
+          }
+        },
+        data: [  //让线和箭头重合在一起
+          [{ coord: [0, 300] }, { coord: [50, 200] },],
+          [{ coord: [0, 100] }, { coord: [50, 200] },],
+          [{ coord: [50, 200] }, { coord: [100, 100] },],
+          [{ coord: [50, 200] }, { coord: [100, 300] },],
+        ]
       }
     ],
   }

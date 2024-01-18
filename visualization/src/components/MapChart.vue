@@ -8,6 +8,8 @@
 <script setup>
 import { defineProps, onMounted, ref, watch } from 'vue'
 import * as echarts from 'echarts'
+import mapJson from '../assets/MapData/china.json'
+
 
 const props = defineProps({
   data: {
@@ -21,6 +23,7 @@ let myChart = null
 const target = ref(null)
 onMounted(() => {
   console.log(props.data);
+  echarts.registerMap('china', mapJson) //注册地图
   myChart = echarts.init(target.value)
   renderChart()
 })
@@ -70,7 +73,6 @@ const renderChart = () => {
         },
       }
     },
-    // 柱形图
     baseOption: {
       grid: {          //设置方位
         right: '2%',
@@ -78,6 +80,37 @@ const renderChart = () => {
         bottom: '10%',
         width: '20%'
       },
+      // 地图配置
+      geo: {
+        show: true,
+        map: 'china',
+        roam: true, //开启缩放
+        zoom: 0.8,
+        center: [113.83531246, 34.0267395887],
+        itemStyle: {  //省份的样式
+          normal: {
+            borderColor: 'rgba(147,235,248,1)',
+            borderWidth: 1,
+            areaColor: {
+              type: 'radial',
+              x: 0.5,
+              y: 0.5,
+              r: 0.5,
+              colorStop: [{
+                offset: 0,
+                color: 'rgba(147,235,248,0)'
+              }, {
+                offset: 1,
+                color: 'rgba(147,235,248,.2)'
+              }]
+            }
+          },
+          emphasis: {
+            areaColor: '#3B9BB7',
+            borderWidth: 0
+          }
+        },
+      }
     },
     options: []
 
@@ -155,10 +188,34 @@ const renderChart = () => {
         data: props.data.categoryData[item].map((item) => {
           return item.value
         })
+      }, {
+        type: 'effectScatter', //散点图
+        coordinateSystem: 'geo', //指定坐标系
+        data: props.data.topData[item],
+        symbolSize: function (val) {
+          return val[2] / 4
+        },
+        showEffectOn: 'render', //绘制完成时的特效
+        rippleEffect: {
+          brushType: 'stroke', //水花效果
+        },
+        label: {
+          normal: {
+            formatter: '{b}',
+            position: 'right',
+            show: true,
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: props.data.colors[index],
+            shadowBlur: 5,
+            shadowColor: props.data.colors[index],
+          }
+        }
       }]
     })
   })
-
 
   myChart.setOption(options)
 }
